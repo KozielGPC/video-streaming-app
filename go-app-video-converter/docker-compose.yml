@@ -8,6 +8,16 @@ services:
       - external-storage:/media/uploads
     tty: true
     stdin_open: true
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=username
+      - RABBITMQ_DEFAULT_PASS=password
 
 volumes:
   external-storage:

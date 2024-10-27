@@ -3,6 +3,7 @@ package converter
 import (
 	"encoding/json"
 	"fmt"
+	"go-app-video-converter/internal/rabbitmq"
 	"log/slog"
 	"os"
 	"os/exec"
@@ -11,22 +12,28 @@ import (
 	"sort"
 	"strconv"
 	"time"
+
+	"github.com/streadway/amqp"
 )
 
-type VideoConverter struct{}
+type VideoConverter struct {
+	rabbitmqClient *rabbitmq.RabbitmqClient
+}
 
 type VideoTask struct {
 	VideoID int    `json:"video_id"`
 	Path    string `json:"path"`
 }
 
-func NewVideoConverter() *VideoConverter {
-	return &VideoConverter{}
+func NewVideoConverter(rabbitmqClient *rabbitmq.RabbitmqClient) *VideoConverter {
+	return &VideoConverter{
+		rabbitmqClient: rabbitmqClient,
+	}
 }
 
-func (vc *VideoConverter) Handle(msg []byte) {
+func (vc *VideoConverter) Handle(d amqp.Delivery) {
 	var task VideoTask
-	err := json.Unmarshal(msg, &task)
+	err := json.Unmarshal(d.Body, &task)
 
 	if err != nil {
 		vc.logError(task, "failed to unmarshal task", err)
@@ -44,6 +51,7 @@ func (vc *VideoConverter) Handle(msg []byte) {
 	}
 
 	// err = MarkProcessed()
+	d.Ack(false)
 	slog.Info("Video marked as processed", slog.Int("video_id", task.VideoID))
 }
 
