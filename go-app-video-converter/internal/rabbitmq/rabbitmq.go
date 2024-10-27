@@ -95,6 +95,64 @@ func (client *RabbitmqClient) ConsumeMessages(exchange, routingKey, queueName st
 	return msgs, nil
 }
 
+func (client *RabbitmqClient) PublishMessage(exchange, routingKey, queueName string, message []byte) error {
+	err := client.channel.ExchangeDeclare(
+		exchange,
+		"direct",
+		true,
+		true,
+		false,
+		false,
+		nil,
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to declare exchange: %w", err)
+	}
+
+	queue, err := client.channel.QueueDeclare(
+		queueName,
+		true,
+		true,
+		false,
+		false,
+		nil,
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to declare queue: %w", err)
+	}
+
+	err = client.channel.QueueBind(
+		queue.Name,
+		routingKey,
+		exchange,
+		false,
+		nil,
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to bind queue: %w", err)
+	}
+
+	err = client.channel.Publish(
+		exchange,
+		routingKey,
+		false,
+		false,
+		amqp.Publishing{
+			ContentType: "application/json",
+			Body:        message,
+		},
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to publish message: %w", err)
+	}
+
+	return nil
+}
+
 func (client *RabbitmqClient) Close() {
 	client.channel.Close()
 	client.conn.Close()

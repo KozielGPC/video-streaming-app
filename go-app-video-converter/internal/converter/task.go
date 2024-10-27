@@ -31,7 +31,7 @@ func NewVideoConverter(rabbitmqClient *rabbitmq.RabbitmqClient) *VideoConverter 
 	}
 }
 
-func (vc *VideoConverter) Handle(d amqp.Delivery) {
+func (vc *VideoConverter) Handle(d amqp.Delivery, conversionExch, confirmationKey, confirmationQueue string) {
 	var task VideoTask
 	err := json.Unmarshal(d.Body, &task)
 
@@ -41,6 +41,7 @@ func (vc *VideoConverter) Handle(d amqp.Delivery) {
 	}
 
 	// if IsProcessed() {
+	// d.Ack(false)
 	// return
 	// }
 	err = vc.processVideo(&task)
@@ -53,6 +54,9 @@ func (vc *VideoConverter) Handle(d amqp.Delivery) {
 	// err = MarkProcessed()
 	d.Ack(false)
 	slog.Info("Video marked as processed", slog.Int("video_id", task.VideoID))
+
+	confirmationMessage := []byte(fmt.Sprintf(`{"video_id": %d, "path": "%s"}`, task.VideoID, task.Path))
+	err = vc.rabbitmqClient.PublishMessage(conversionExch, confirmationKey, confirmationQueue, confirmationMessage)
 }
 
 func (vc *VideoConverter) processVideo(task *VideoTask) error {

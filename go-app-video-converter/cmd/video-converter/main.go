@@ -39,6 +39,9 @@ func main() {
 	queueName := getEnvOrDefault("CONVERSION_QUEUE", "video_conversion_queue")
 	conversionKey := getEnvOrDefault("CONVERSION_KEY", "conversion")
 
+	confirmationQueue := getEnvOrDefault("CONFIRMATION_QUEUE", "finish_conversion_queue")
+	confirmationKey := getEnvOrDefault("CONFIRMATION_KEY", "finish_conversion")
+
 	vc := converter.NewVideoConverter(rabbitMQClient)
 	// vc.Handle([]byte(`{"video_id": 1, "path": "mediatest/media/uploads/1"}`))
 
@@ -50,7 +53,7 @@ func main() {
 
 	for d := range msgs {
 		go func(delivery amqp.Delivery) {
-			vc.Handle(delivery)
+			vc.Handle(delivery, conversionExch, confirmationKey, confirmationQueue)
 		}(d)
 	}
 }
