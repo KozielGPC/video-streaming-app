@@ -1,0 +1,3 @@
+include:
+  - ./gp-app-video-converter/docker-compose.yaml
+  - ./next-app/docker-compose.yaml
