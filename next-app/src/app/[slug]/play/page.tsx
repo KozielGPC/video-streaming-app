@@ -3,7 +3,7 @@ import { ptBR } from "date-fns/locale";
 import { Suspense } from "react";
 import VideoCardSkeleton from "../../../components/VideoCardSkeleton";
 import { getVideo } from "./getVideo";
-import { unstable_after as after} from "next/server";
+import { unstable_after} from "next/server";
 import { VideoViews } from "./VideoViews";
 import { VideoLikeCounter } from "./VideoLike";
 import { VideoPlayer } from "@/components/VideoPlayer";
@@ -15,11 +15,13 @@ export default async function VideoPlayPage({
   params: { slug: string };
 }) {
   const video = await getVideo(params.slug);
-//   after(async () => {
-//     await fetch(`${process.env.DJANGO_API_URL}/videos/${video.id}/register-view`, {
-//       method: "POST",
-//     })
-//   });
+  unstable_after(async () => {
+    // await fetch(`${process.env.DJANGO_API_URL}/videos/${video.id}/register-view`, {
+    //   method: "POST",
+    // })
+    // console.log("aaaaaaaaaaaaaaa");
+    
+  }); 
   return (
     <main className="container mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row gap-4">
