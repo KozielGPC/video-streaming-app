@@ -1,8 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"io"
+	db "auth-server/config"
+	"auth-server/internal/handler"
+	"auth-server/internal/repository"
+	"auth-server/internal/service"
 	"log"
 	"net/http"
 
@@ -10,19 +12,20 @@ import (
 )
 
 func main() {
+	db, err := db.OpenConn()
+	if err != nil {
+		log.Fatalf("error connecting to database")
+	}
+
+	keysRepository := repository.NewKeyRepository(db)
+	keysService := service.NewKeysService(keysRepository)
+	keysHandler := handler.NewHandler(keysService)
+
+	log.Default().Println("Creating routes...")
+
 	e := echo.New()
 
-	e.POST("/auth", func(c echo.Context) error {
-		log.Default().Println("Running auth")
-		body := c.Request().Body
-
-		defer body.Close()
-
-		fields, _ := io.ReadAll(body)
-		fmt.Println(string(fields))
-
-		return c.String(http.StatusOK, "WORKING")
-	})
+	e.POST("/auth", keysHandler.AuthSreamingKey)
 
 	e.GET("/healthcheck", func(c echo.Context) error {
 		return c.String(http.StatusOK, "WORKING")
