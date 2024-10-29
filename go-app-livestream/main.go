@@ -1,30 +1,32 @@
 package main
 
 import (
+	"fmt"
+	"io"
+	"log"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
-type stream struct {
-	ID    string `json:"id"`
-	Title string `json:"title"`
-	Owner string `json:"owner"`
-}
-
-var streams = []stream{
-	{ID: "1", Title: "Live coding - GO Lang", Owner: "John Coltrane"},
-	{ID: "2", Title: "Gaming with Friends", Owner: "Gerry Mulligan"},
-	{ID: "3", Title: "Just Chatting", Owner: "Sarah Vaughan"},
-}
-
-func getStreams(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, streams)
-}
-
 func main() {
-	router := gin.Default()
-	router.GET("/streams", getStreams)
+	e := echo.New()
 
-	router.Run("localhost:8080")
+	e.POST("/auth", func(c echo.Context) error {
+		log.Default().Println("Running auth")
+		body := c.Request().Body
+
+		defer body.Close()
+
+		fields, _ := io.ReadAll(body)
+		fmt.Println(string(fields))
+
+		return c.String(http.StatusOK, "WORKING")
+	})
+
+	e.GET("/healthcheck", func(c echo.Context) error {
+		return c.String(http.StatusOK, "WORKING")
+	})
+
+	e.Logger.Fatal(e.Start(":8000"))
 }
