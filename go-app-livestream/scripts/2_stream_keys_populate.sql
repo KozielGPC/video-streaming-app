@@ -1,5 +1,5 @@
 INSERT INTO "Lives" ("name", "stream_key") 
-VALUES ('primeira_live', 'id1');
+VALUES ('primeiralive', 'id1');
 
 INSERT INTO "Lives" ("name", "stream_key") 
-VALUES ('segunda_live', 'id2');
+VALUES ('segundalive', 'id2');
