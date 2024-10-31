@@ -3,6 +3,7 @@ package handler
 import (
 	"auth-server/internal/model"
 	"auth-server/internal/service"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -11,61 +12,58 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type IKeysHandler interface {
-	AuthStreamingKey(ctr echo.Context) error
+type KeysHandler interface {
+	AuthStreamingKey(ctx echo.Context) error
 }
 
 type keysHandler struct {
-	keysService service.IKeyService
+	KeysService service.IKeyService
 }
 
-func NewHandler(serv service.IKeyService) IKeysHandler {
+func NewHandler(s service.IKeyService) *keysHandler {
 	return &keysHandler{
-		keysService: serv,
+		KeysService: s,
 	}
 }
 
-func (kh *keysHandler) AuthStreamingKey(ctx echo.Context) error {
-	log.Default().Println("Running auth")
+func (h *keysHandler) AuthStreamingKey(ctx echo.Context) error {
 	body := ctx.Request().Body
-
 	defer body.Close()
-
 	fields, _ := io.ReadAll(body)
-	streamingKey := getStreamKey(fields)
+	log.Default().Println("Auth...", fields)
+	authValues := getKeyValues(fields)
 
-	keys, err := kh.keysService.AuthStreamingKey(streamingKey.Name, streamingKey.Key)
-
+	keys, err := h.KeysService.AuthStreamingKey(authValues.Name, authValues.Key)
 	if err != nil {
-		return ctx.String(http.StatusBadRequest, "problem finding streaming key")
+		return ctx.JSON(http.StatusInternalServerError, "Error findind key")
 	}
 
-	if keys.Key != "" {
-		log.Default().Println("User Authenticated!!")
-		return ctx.String(http.StatusOK, "WORKING")
+	if keys.Key == "" {
+		log.Default().Println("Forbidden User")
+		return ctx.String(http.StatusForbidden, "")
 	}
 
-	return ctx.String(http.StatusForbidden, "Forbidden")
+	log.Default().Println("User authenticated")
 
+	newStreamURL := fmt.Sprintf("rtmp://127.0.0.1:1935/hls-live/%s", keys.Name)
+	log.Default().Println("Redirecting to:", newStreamURL)
+	return ctx.Redirect(http.StatusFound, newStreamURL)
 }
 
-func getStreamKey(s []byte) model.Keys {
+func getKeyValues(s []byte) model.Keys {
 	var authValues model.Keys
-
 	pairs := strings.Split(string(s), "&")
 
 	for _, pair := range pairs {
-		splitPair := strings.Split(pair, "=")
-		key := splitPair[0]
-		value := splitPair[1]
+		parts := strings.Split(pair, "=")
+		key := parts[0]
+		value := parts[1]
 
 		if key == "name" {
-			// "nomedalive_IDdalive"
-			allPassedValues := strings.Split(value, "_")
-			authValues.Name = allPassedValues[0]
-			authValues.Key = allPassedValues[1]
+			s := strings.Split(value, "_")
+			authValues.Name = s[0]
+			authValues.Key = s[1]
 		}
 	}
-
 	return authValues
 }
