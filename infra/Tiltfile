@@ -1,0 +1,38 @@
+docker_build(
+  'node-service',
+  context='../microservices/node-service',
+  live_update=[
+    sync('../microservices/node-service', '/app'),
+  ]
+)
+
+# docker_build(
+#   'person-crud-frontend',
+#   context='./frontend',
+#   live_update=[
+#     sync('./frontend', '/app'),
+#   ]
+# )
+
+k8s_yaml(
+    [
+      'kubernetes/dev/node-service-secret.yml',
+    #   'dev/frontend-secret.yml', 
+      'kubernetes/dev/node-service-deployment.yml', 
+    #   'infra/dev/services.yml', 
+    #   'infra/dev/frontend-deployment.yml'
+    ]
+)
+
+
+k8s_resource(
+  'node-service-deployment',
+  port_forwards=['3001:3001'],
+  labels=["application"]
+)
+
+# k8s_resource(
+#   'frontend-deployment',
+#   port_forwards=['3000:3000'],
+#   labels=["application"]
+# )

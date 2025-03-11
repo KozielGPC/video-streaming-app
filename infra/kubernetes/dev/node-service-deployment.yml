@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-service
+  template:
+    metadata:
+      labels:
+        app: node-service
+    spec:
+      containers:
+      - name: node-service
+        image: node-service
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "356Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 4000
+        env:
+        - name: PORT
+          valueFrom:
+            secretKeyRef:
+              name: node-service-secret
+              key: PORT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: node-service
+  ports:
+  - port: 4000
+    targetPort: 4000
+    protocol: TCP

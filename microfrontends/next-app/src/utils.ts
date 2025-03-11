@@ -5,7 +5,7 @@ export function getMockedVideos(): VideoModel[] {
         id: index + 1,
         title: `Sample Video Title ${index + 1}`,
         description: `This is a description for Sample Video ${index + 1}. It provides an overview of the video's content.`,
-        thumbnail: `https://via.placeholder.com/150?text=Thumbnail+${index + 1}`,
+        thumbnail: `https://placehold.co/150/png`,
         slug: `sample-video-${index + 1}`,
         published_at: new Date(Date.now() - index * 100000000).toISOString(), // staggered publish dates
         likes: Math.floor(Math.random() * 1000),
