@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@module-federation/nextjs-mf": "^8.8.18",
     "date-fns": "^4.1.0",
     "next": "15.0.1",
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
-    "shaka-player": "^4.11.10"
+    "shaka-player": "^4.11.10",
+    "webpack": "^5.98.0"
   },
   "devDependencies": {
     "@types/node": "^20",

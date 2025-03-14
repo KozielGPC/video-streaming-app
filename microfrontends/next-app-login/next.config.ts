@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
           // './Header': './components/Header.tsx',
           // './Footer': './components/Footer.tsx',
           // './ProductList': './components/ProductList.tsx',
-          "./Home": "./src/app/page.tsx",
+          "./Home": "./src/pages/page.tsx",
         },
         shared: {
           react: { singleton: true, requiredVersion: false },
@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
           "next/navigation": { singleton: true, requiredVersion: false },
         },
         extraOptions: {
-          skipSharingNextInternals: true,
+          skipSharingNextInternals: false,
         },
       })
     );
