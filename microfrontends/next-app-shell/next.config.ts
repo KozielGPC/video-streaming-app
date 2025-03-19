@@ -1,30 +1,46 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 import { NextFederationPlugin } from "@module-federation/nextjs-mf";
 
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  webpack(config) {
+  reactStrictMode: true,
+  webpack(config, options) {
     config.plugins.push(
       new NextFederationPlugin({
-        extraOptions: {},
-        name: 'host',
+        name: "main-host",
+        filename: "static/chunks/remoteEntry.js",
         remotes: {
-          nextMicrofrontend: "nextMicrofrontend@http://localhost:3001/_next/static/chunks/remoteEntry.js",
-          reactApp: 'reactApp@http://localhost:3001/remoteEntry.js',
-          angularApp: 'angularApp@http://localhost:4200/remoteEntry.js',
+          "login": `login@http://localhost:3005/_next/static/${
+            options.isServer ? "ssr" : "chunks"
+          }/remoteEntry.js`,
+          // "harry-potter": `harry-potter@http://localhost:3002/_next/static/${
+          //   options.isServer ? "ssr" : "chunks"
+          // }/remoteEntry.js`,
         },
-        shared: {
-          react: {
-            singleton: true,
-            requiredVersion: false,
-          },
-          'react-dom': {
-            singleton: true,
-            requiredVersion: false,
-          },
+        shared: {},
+        extraOptions: {
+          exposePages: true,
+          enableImageLoaderFix: true,
+          enableUrlLoaderFix: true,
         },
       })
     );
     return config;
+  },
+  // i18n: {
+  //   locales: ["en", "es"],
+  //   defaultLocale: "en",
+  //   localeDetection: false,
+  // },
+  trailingSlash: true,
+  images: {
+    domains: ["localhost", "placehold.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "rickandmortyapi.com",
+      },
+    ],
   },
 };
 

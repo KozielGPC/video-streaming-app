@@ -1,12 +1,12 @@
-import { VideoModel } from "@/app/types/video";
+import { VideoModel } from "@/pages/types/video";
 import { VideoCard } from "./VideoCard";
 import Link from "next/link";
 import { getMockedVideos } from "@/utils";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function getVideos(search: string): Promise<VideoModel[]> {
-  await sleep(2000);
+  // await sleep(2000);
 //   const url = search
 //     ? `${process.env.DJANGO_API_URL}/videos?q=${search}`
 //     : `${process.env.DJANGO_API_URL}/videos`;

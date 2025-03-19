@@ -1,4 +1,4 @@
-import { VideoModel } from "@/app/types/video";
+import { VideoModel } from "@/pages/types/video";
 import { getMockedVideos } from "@/utils";
 
 export async function getVideo(slug: string): Promise<VideoModel> {

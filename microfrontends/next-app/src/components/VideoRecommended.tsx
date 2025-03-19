@@ -1,4 +1,4 @@
-import { VideoModel } from "@/app/types/video";
+import { VideoModel } from "@/pages/types/video";
 import { VideoCard } from "./VideoCard";
 import Link from "next/link";
 import { getMockedVideos } from "@/utils";

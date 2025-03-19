@@ -1,52 +1,28 @@
-// import type { NextConfig } from "next";
-
-// const nextConfig: NextConfig = {
-//   images: {
-//     remotePatterns: [
-//       {
-//         hostname: "localhost",
-//       },
-//       {
-//         hostname: "placehold.co",
-//       },
-//     ],
-//   },
-//   experimental: {
-//     after: true,
-//   },
-// };
-
-// export default nextConfig;
-
-import { NextConfig } from "next";
 import { NextFederationPlugin } from "@module-federation/nextjs-mf";
+import { NextConfig } from "next";
 
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: "standalone",
-  webpack: (config) => {
-    config.plugins = config.plugins || [];
-
+  webpack(config, { isServer }) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: "nextMicrofrontend",
+        name: "login",
         filename: "static/chunks/remoteEntry.js",
         exposes: {
-          // './Header': './components/Header.tsx',
-          // './Footer': './components/Footer.tsx',
-          // './ProductList': './components/ProductList.tsx',
-          "./Home": "./src/app/page.tsx",
+          "./Home": "./src/pages/index.tsx",
         },
-        shared: {
-          react: { singleton: true, requiredVersion: false },
-          "react-dom": { singleton: true, requiredVersion: false },
-          "next/navigation": { singleton: true, requiredVersion: false },
-        },
+        shared: {},
         extraOptions: {
-          skipSharingNextInternals: true,
+          exposePages: true,
+          enableImageLoaderFix: true,
+          enableUrlLoaderFix: true,
         },
       })
     );
+    if (!isServer) {
+      config.output.publicPath = "http://localhost:3005/_next/";
+    }
 
     return config;
   },
@@ -54,10 +30,8 @@ const nextConfig: NextConfig = {
     domains: ["localhost", "placehold.co"],
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "3000",
-        pathname: "/**",
+        protocol: "https",
+        hostname: "hp-api.onrender.com",
       },
     ],
   },

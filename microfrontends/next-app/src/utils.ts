@@ -1,4 +1,4 @@
-import { VideoModel } from "./app/types/video";
+import { VideoModel } from "./pages/types/video";
 
 export function getMockedVideos(): VideoModel[] {
     const mockData: VideoModel[] = Array.from({ length: 10 }, (_, index) => ({

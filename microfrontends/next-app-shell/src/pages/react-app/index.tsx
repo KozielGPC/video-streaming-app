@@ -3,11 +3,10 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 
 // Dynamically import the React microfrontend
-const ReactMicrofrontend = dynamic(() => import("@/components/react-microfrontend"), {
+const ReactMicrofrontend = dynamic(() => import("login/Home"), {
   ssr: false,
   loading: () => <div className="p-4 border rounded">Loading React microfrontend...</div>,
 })
-
 export default function ReactAppPage() {
   return (
     <main className="container mx-auto p-6">
