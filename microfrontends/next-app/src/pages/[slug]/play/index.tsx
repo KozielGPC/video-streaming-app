@@ -8,13 +8,12 @@ import { VideoLikeCounter } from "./VideoLike";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { VideosRecommendList } from "@/components/VideoRecommended";
 
-export default async function VideoPlayPage({
+export default function VideoPlayPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const { slug } = await params;
-  const video = await getVideo(slug);
+  const video = getVideo("asdas");
   return (
     <main className="container mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row gap-4">

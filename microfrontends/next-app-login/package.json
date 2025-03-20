@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NEXT_PRIVATE_LOCAL_WEBPACK=true PORT=3005 next dev",
+    "dev": "NEXT_PRIVATE_LOCAL_WEBPACK=true PORT=3006 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

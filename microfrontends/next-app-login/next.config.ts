@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   webpack(config, { isServer }) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: "login",
+        name: "teste",
         filename: "static/chunks/remoteEntry.js",
         exposes: {
           "./Home": "./src/pages/index.tsx",
@@ -21,12 +21,13 @@ const nextConfig: NextConfig = {
       })
     );
     if (!isServer) {
-      config.output.publicPath = "http://localhost:3005/_next/";
+      config.output.publicPath = "http://localhost:3006/_next/";
     }
 
     return config;
   },
   images: {
+    domains: ["localhost", "placehold.co"],
     remotePatterns: [
       {
         protocol: "https",

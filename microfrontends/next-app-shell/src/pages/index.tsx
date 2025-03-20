@@ -9,10 +9,10 @@ const ReactMicrofrontend = dynamic(() => import("login/Home"), {
   loading: () => <div className="p-4 border rounded">Loading React microfrontend...</div>,
 })
 
-// const AngularMicrofrontend = dynamic(() => import("@/components/angular-microfrontend"), {
-//   ssr: false,
-//   loading: () => <div className="p-4 border rounded">Loading Angular microfrontend...</div>,
-// })
+const OtherFrontend = dynamic(() => import("teste/Home"), {
+  ssr: false,
+  loading: () => <div className="p-4 border rounded">Loading Angular microfrontend...</div>,
+})
 
 //@ts-expect-error lazy
 // const Login = lazy(() => import("login/Home"));
@@ -54,7 +54,7 @@ export default function Home() {
         <div className="border rounded-lg p-6 shadow-sm">
           <h2 className="text-xl font-semibold mb-4">Angular Microfrontend</h2>
           <Suspense fallback={<div>Loading Angular app...</div>}>
-            {/* <AngularMicrofrontend /> */}
+            <OtherFrontend />
           </Suspense>
         </div>
       </div>

@@ -13,6 +13,7 @@ export default function Home({searchParams}: {searchParams: {search: string}}) {
             <VideoCardSkeleton key={index} />
           ))}
         >
+          {/* <div>Frontend videos</div> */}
           <VideosList search={""}/>
         </Suspense>
       </div>

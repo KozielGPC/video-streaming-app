@@ -13,9 +13,9 @@ const nextConfig: NextConfig = {
           "login": `login@http://localhost:3005/_next/static/${
             options.isServer ? "ssr" : "chunks"
           }/remoteEntry.js`,
-          // "harry-potter": `harry-potter@http://localhost:3002/_next/static/${
-          //   options.isServer ? "ssr" : "chunks"
-          // }/remoteEntry.js`,
+          "teste": `teste@http://localhost:3006/_next/static/${
+            options.isServer ? "ssr" : "chunks"
+          }/remoteEntry.js`,
         },
         shared: {},
         extraOptions: {

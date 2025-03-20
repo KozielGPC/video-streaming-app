@@ -37,7 +37,7 @@ export function VideoCard(props: VideoCardProps) {
         <h3 className="text-lg font-semibold text-primary">{title}</h3>
 
         <div className="flex items-center justify-between mt-1 text-sm text-secondary">
-          <span>{views} visualizações</span>
+          <span>37 visualizações</span>
           <div className="flex items-center space-x-1">
             {likes !== undefined && <span>{likes} likes</span>}
           </div>
