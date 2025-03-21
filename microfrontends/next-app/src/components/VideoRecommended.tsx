@@ -1,20 +1,15 @@
-import { VideoModel } from "@/app/types/video";
+import { VideoModel } from "@/pages/types/video";
 import { VideoCard } from "./VideoCard";
 import Link from "next/link";
 import { getMockedVideos } from "@/utils";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export function getVideosRecommended(videoId: number): VideoModel[] {
+  //   const response = await fetch(`${process.env.DJANGO_API_URL}/videos/${videoId}/recommended`, {
+  //     cache: "no-cache",
+  //   });
 
-export async function getVideosRecommended(
-  videoId: number
-): Promise<VideoModel[]> {
-  await sleep(2000);
-//   const response = await fetch(`${process.env.DJANGO_API_URL}/videos/${videoId}/recommended`, {
-//     cache: "no-cache",
-//   });
-
-//   return response.json();
-    return getMockedVideos()
+  //   return response.json();
+  return getMockedVideos();
 }
 
 export type VideoRecommendListProps = {
@@ -26,7 +21,7 @@ export async function VideosRecommendList(props: VideoRecommendListProps) {
   const videos = await getVideosRecommended(videoId);
   return videos.length ? (
     videos.map((video) => (
-      <Link key={video.id} href={`/${video.slug}/play`} >
+      <Link key={video.id} href={`/${video.slug}/play`}>
         <VideoCard
           title={video.title}
           thumbnail={video.thumbnail}

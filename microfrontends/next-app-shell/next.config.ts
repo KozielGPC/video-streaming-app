@@ -1,16 +1,21 @@
-import { NextFederationPlugin } from "@module-federation/nextjs-mf";
 import { NextConfig } from "next";
+import { NextFederationPlugin } from "@module-federation/nextjs-mf";
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  webpack(config, { isServer }) {
+  webpack(config, options) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: "login",
+        name: "main-host",
         filename: "static/chunks/remoteEntry.js",
-        exposes: {
-          "./Home": "./src/pages/index.tsx",
+        remotes: {
+          "login": `login@http://localhost:3005/_next/static/${
+            options.isServer ? "ssr" : "chunks"
+          }/remoteEntry.js`,
+          "teste": `teste@http://localhost:3006/_next/static/${
+            options.isServer ? "ssr" : "chunks"
+          }/remoteEntry.js`,
         },
         shared: {},
         extraOptions: {
@@ -20,18 +25,20 @@ const nextConfig: NextConfig = {
         },
       })
     );
-    if (!isServer) {
-      config.output.publicPath = "http://localhost:3005/_next/";
-    }
-
     return config;
   },
+  // i18n: {
+  //   locales: ["en", "es"],
+  //   defaultLocale: "en",
+  //   localeDetection: false,
+  // },
+  trailingSlash: true,
   images: {
     domains: ["localhost", "placehold.co"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "hp-api.onrender.com",
+        hostname: "rickandmortyapi.com",
       },
     ],
   },
