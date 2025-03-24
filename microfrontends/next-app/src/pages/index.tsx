@@ -1,25 +1,28 @@
 import { Suspense } from "react";
+import { Row, Col, Layout } from "antd";
 import VideoCardSkeleton from "@/components/VideoCardSkeleton";
 import { VideosList } from "@/components/VideosList";
+import { Navbar } from "@/components/NavBar/NavBar";
 
-//cache
-export default function Home({searchParams}: {searchParams: {search: string}}) {
-  // const { search } = await searchParams
+const { Content } = Layout;
+
+export default function Home() {
   return (
-    <main className="container mx-auto px-4 py-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <Suspense
-          fallback={new Array(15).fill(null).map((_, index) => (
-            <VideoCardSkeleton key={index} />
-          ))}
-        >
-          {/* <div>Frontend videos</div> */}
-          <VideosList search={""}/>
-        </Suspense>
-      </div>
-    </main>
+    <Layout style={{ padding: "24px" }}>
+      <Content>
+        <Navbar />
+        <Row gutter={[16, 16]}>
+          <Suspense
+            fallback={new Array(15).fill(null).map((_, index) => (
+              <Col xs={24} sm={12} md={8} lg={6} key={index}>
+                <VideoCardSkeleton />
+              </Col>
+            ))}
+          >
+            <VideosList search={""} />
+          </Suspense>
+        </Row>
+      </Content>
+    </Layout>
   );
 }
-
-//utility first
-//css cascata

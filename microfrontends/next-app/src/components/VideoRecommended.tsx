@@ -2,13 +2,9 @@ import { VideoModel } from "@/pages/types/video";
 import { VideoCard } from "./VideoCard";
 import Link from "next/link";
 import { getMockedVideos } from "@/utils";
+import { List, Empty } from "antd";
 
 export function getVideosRecommended(videoId: number): VideoModel[] {
-  //   const response = await fetch(`${process.env.DJANGO_API_URL}/videos/${videoId}/recommended`, {
-  //     cache: "no-cache",
-  //   });
-
-  //   return response.json();
   return getMockedVideos();
 }
 
@@ -18,23 +14,26 @@ export type VideoRecommendListProps = {
 
 export async function VideosRecommendList(props: VideoRecommendListProps) {
   const { videoId } = props;
-  const videos = await getVideosRecommended(videoId);
+  const videos = getVideosRecommended(videoId);
+
   return videos.length ? (
-    videos.map((video) => (
-      <Link key={video.id} href={`/${video.slug}/play`}>
-        <VideoCard
-          title={video.title}
-          thumbnail={video.thumbnail}
-          views={video.views}
-          orientation="horizontal"
-        />
-      </Link>
-    ))
+    <List
+      itemLayout="horizontal"
+      dataSource={videos}
+      renderItem={(video) => (
+        <List.Item>
+          <Link key={video.id} href={`/${video.slug}/play`}>
+            <VideoCard
+              title={video.title}
+              thumbnail={video.thumbnail}
+              views={video.views}
+              orientation="horizontal"
+            />
+          </Link>
+        </List.Item>
+      )}
+    />
   ) : (
-    <div className="flex items-center justify-center w-full col-span-full">
-      <p className="text-gray-600 text-xl font-semibold">
-        Nenhum vídeo encontrado.
-      </p>
-    </div>
+    <Empty description="Nenhum vídeo encontrado." style={{ marginTop: 20 }} />
   );
 }

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Card, Typography } from "antd";
 
 export type VideoCardProps = {
   title: string;
@@ -9,40 +10,46 @@ export type VideoCardProps = {
 };
 
 export function VideoCard(props: VideoCardProps) {
-  const {
-    title,
-    thumbnail,
-    views,
-    likes,
-    orientation = "vertical",
-  } = props;
-  const flexDirection = orientation === "vertical" ? "flex-col" : "flex-row";
-  const imageSize =
-    orientation === "horizontal" ? "w-5/12 h-24" : "w-full h-40";
+  const { title, thumbnail, views, likes, orientation = "vertical" } = props;
+  const isHorizontal = orientation === "horizontal";
+
   return (
-    <div
-      className={`flex ${flexDirection} overflow-hidden gap-2`}
-    >
-      <div className={`${imageSize} relative`}>
+    <Card
+      hoverable
+      cover={
         <Image
           src={thumbnail}
           priority={true}
           alt="Video Thumbnail"
-          fill={true}
+          // fill={true}
           sizes="100%"
-          className="object-cover rounded-lg"
+          className="object-cover"
+          width={100}
+          height={isHorizontal ? 96 : 160}
+          // style={{ height: isHorizontal ? 96 : 160, width: "100%" }}
         />
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold text-primary">{title}</h3>
-
-        <div className="flex items-center justify-between mt-1 text-sm text-secondary">
-          <span>37 visualizações</span>
-          <div className="flex items-center space-x-1">
+      }
+      style={{
+        display: "flex",
+        flexDirection: isHorizontal ? "row" : "column",
+      }}
+    >
+      <Card.Meta
+        title={<Typography.Title level={5}>{title}</Typography.Title>}
+        description={
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "0.875rem",
+            }}
+          >
+            {/* <span>{views} visualizações</span> */}
+            <span>1273812738 views</span>
             {likes !== undefined && <span>{likes} likes</span>}
           </div>
-        </div>
-      </div>
-    </div>
+        }
+      />
+    </Card>
   );
 }

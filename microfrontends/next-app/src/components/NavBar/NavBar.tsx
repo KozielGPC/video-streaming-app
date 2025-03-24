@@ -1,27 +1,34 @@
 import Link from "next/link";
 import { SearchBar } from "./SearchBar";
+import { Layout, Typography } from "antd";
+
+const { Header } = Layout;
+const { Title } = Typography;
 
 export function Navbar() {
   return (
-    <header className="bg-primary border-secondary border-b-2">
-      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <Link href="/" className="text-2xl font-bold text-[#ffcd00]">
+    <Header style={{ background: "#001529", padding: "0 16px" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Link href="/">
+          <Title level={2} style={{ color: "#ffcd00", margin: 0 }}>
             KoziTube
-          </Link>
-        </div>
+          </Title>
+        </Link>
 
-        <div className="w-1/2 relative">
-          {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+        <div style={{ flex: 1, maxWidth: "50%" }}>
           <SearchBar />
         </div>
 
-        <div className="flex items-center space-x-4">
-          <a href="#" className="text-primary">
-            Login
-          </a>
-        </div>
+        <Link href="#" style={{ color: "#fff", fontSize: "16px" }}>
+          Login
+        </Link>
       </div>
-    </header>
+    </Header>
   );
 }
