@@ -1,6 +1,7 @@
 import { formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Suspense } from "react";
+import { Card, Typography, Layout, Row, Col, Skeleton, Divider } from "antd";
 import VideoCardSkeleton from "../../../components/VideoCardSkeleton";
 import { getVideo } from "./getVideo";
 import { VideoViews } from "./VideoViews";
@@ -8,60 +9,45 @@ import { VideoLikeCounter } from "./VideoLike";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { VideosRecommendList } from "@/components/VideoRecommended";
 
-export default function VideoPlayPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+const { Title, Text, Paragraph } = Typography;
+const { Content } = Layout;
+
+export default function VideoPlayPage() {
   const video = getVideo("asdas");
+
   return (
-    <main className="container mx-auto px-4 py-6">
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex-1">
-          <div className="bg-black rounded-lg overflow-hidden">
-            <VideoPlayer url={video.video_url} poster={video.thumbnail} />
-          </div>
-
-          <h2 className="mt-4 text-2xl font-bold text-primary">
-            {video.title}
-          </h2>
-
-          <div className="mt-2 flex items-center justify-between text-secondary">
-            <div className="flex flex-row items-center">
-              <Suspense
-                fallback={
-                  <div className="w-48 h-8 bg-secondary animate-pulse rounded mr-2"></div>
-                }
-              >
-                <VideoViews videoId={video.id} />
-                <span>
-                  &nbsp;há&nbsp;
-                  {formatDistance(video.published_at, new Date(), {
-                    locale: ptBR,
-                  })}
-                </span>
-              </Suspense>
-            </div>
-            <Suspense
-              fallback={
-                <div className="w-24 h-8 bg-secondary animate-pulse rounded mr-2"></div>
+    <Layout style={{ padding: "24px" }}>
+      <Content>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} md={16}>
+            <Card
+              cover={
+                <VideoPlayer url={video.video_url} poster={video.thumbnail} />
               }
+              variant="borderless"
             >
-              <VideoLikeCounter videoId={video.id} />
-            </Suspense>
-          </div>
+              <Title level={2}>{video.title}</Title>
+              <Row justify="space-between" align="middle">
+                <Suspense fallback={<Skeleton.Button active size="large" />}>
+                  <VideoViews videoId={video.id} />
+                  <Text type="secondary">
+                    há{" "}
+                    {formatDistance(video.published_at, new Date(), {
+                      locale: ptBR,
+                    })}
+                  </Text>
+                </Suspense>
+                <Suspense fallback={<Skeleton.Button active size="small" />}>
+                  <VideoLikeCounter videoId={video.id} />
+                </Suspense>
+              </Row>
+              <Divider />
+              <Paragraph>{video.description}</Paragraph>
+            </Card>
+          </Col>
 
-          <div className="bg-primary rounded-lg mt-2">
-            <p className="text-primary">{video.description}</p>
-          </div>
-        </div>
-
-        <div className="w-full md:w-1/3">
-          <h3 className="text-xl font-semibold text-primary mb-4">
-            Vídeos Recomendados
-          </h3>
-
-          <div className="flex flex-col gap-4">
+          <Col xs={24} md={8}>
+            <Title level={3}>Vídeos Recomendados</Title>
             <Suspense
               fallback={new Array(10).fill(0).map((_, i) => (
                 <VideoCardSkeleton orientation="horizontal" key={i} />
@@ -69,9 +55,9 @@ export default function VideoPlayPage({
             >
               <VideosRecommendList videoId={video.id} />
             </Suspense>
-          </div>
-        </div>
-      </div>
-    </main>
+          </Col>
+        </Row>
+      </Content>
+    </Layout>
   );
 }
