@@ -28,9 +28,10 @@ flowchart TD
 
     subgraph Frontend["Frontend Layer"]
         direction TB
-        MF1[Microfrontend 1]:::frontend
-        MF2[Microfrontend 2]:::frontend
-        MF3[Microfrontend 3]:::frontend
+        MF1[Login/User Info]:::frontend
+        MF2[Videos]:::frontend
+        MF3[Stream]:::frontend
+        MF4[Currency/Points]:::frontend
     end
 
     subgraph Gateway["API Gateway Layer"]
@@ -38,9 +39,10 @@ flowchart TD
     end
 
     subgraph Services["Service Layer"]
-        MS1[Microservice 1]:::service
-        MS2[Microservice 2]:::service
-        MS3[Microservice 3]:::service
+        MS1[Auth]:::service
+        MS2[Currency/Points]:::service
+        MS3[Stream]:::service
+        MS4[Videos]:::service
     end
 
     subgraph Messaging["Messaging Layer"]
@@ -54,8 +56,8 @@ flowchart TD
     MS1 & MS2 & MS3 <--> RMQ
     MS1 & MS2 & MS3 <--> Redis
 
-    %% Legend
-    subgraph Legend["Legend"]
+    %% Label
+    subgraph Label["Label"]
         F[Frontend Component]:::frontend
         S[Service Component]:::service
         M[Messaging System]:::messaging
