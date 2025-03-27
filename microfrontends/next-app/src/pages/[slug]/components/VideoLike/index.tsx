@@ -1,5 +1,5 @@
-import { LikeButton } from "@/pages/[slug]/play/LikeButton";
 import { getMockedVideos } from "@/utils";
+import { LikeButton } from "../LikeButton";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

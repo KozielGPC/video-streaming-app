@@ -1,8 +1,8 @@
 import { VideoModel } from "@/pages/types/video";
-import { VideoCard } from "./VideoCard";
 import Link from "next/link";
 import { getMockedVideos } from "@/utils";
 import { List, Empty } from "antd";
+import VideoCard from "./VideoCard/VideoCard";
 
 export function getVideosRecommended(videoId: number): VideoModel[] {
   return getMockedVideos();
@@ -22,12 +22,12 @@ export async function VideosRecommendList(props: VideoRecommendListProps) {
       dataSource={videos}
       renderItem={(video) => (
         <List.Item>
-          <Link key={video.id} href={`/${video.slug}/play`}>
+          <Link key={video.id} href={`/${video.slug}`}>
             <VideoCard
-              title={video.title}
-              thumbnail={video.thumbnail}
-              views={video.views}
-              orientation="horizontal"
+            // title={video.title}
+            // thumbnail={video.thumbnail}
+            // views={video.views}
+            // orientation="horizontal"
             />
           </Link>
         </List.Item>

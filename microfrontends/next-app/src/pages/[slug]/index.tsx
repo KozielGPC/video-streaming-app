@@ -2,12 +2,12 @@ import { formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Suspense } from "react";
 import { Card, Typography, Layout, Row, Col, Skeleton, Divider } from "antd";
-import VideoCardSkeleton from "../../../components/VideoCardSkeleton";
 import { getVideo } from "./getVideo";
-import { VideoViews } from "./VideoViews";
-import { VideoLikeCounter } from "./VideoLike";
+import { VideoViews } from "./components/VideoViews";
+import { VideoLikeCounter } from "./components/VideoLike";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { VideosRecommendList } from "@/components/VideoRecommended";
+import VideoCardSkeleton from "@/components/VideoCardSkeleton";
 
 const { Title, Text, Paragraph } = Typography;
 const { Content } = Layout;

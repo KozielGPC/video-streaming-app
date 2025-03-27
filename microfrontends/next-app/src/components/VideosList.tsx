@@ -1,8 +1,8 @@
 import { VideoModel } from "@/pages/types/video";
-import { VideoCard } from "./VideoCard";
 import Link from "next/link";
 import { getMockedVideos } from "@/utils";
 import { Row, Col, Empty } from "antd";
+import VideoCard from "./VideoCard/VideoCard";
 
 export async function getVideos(search: string): Promise<VideoModel[]> {
   return getMockedVideos();
@@ -19,11 +19,11 @@ export async function VideosList(props: VideoListProps) {
     <Row gutter={[16, 16]}>
       {videos.map((video) => (
         <Col xs={24} sm={12} md={8} lg={6} key={video.id}>
-          <Link href={`/${video.slug}/play`}>
+          <Link href={`/${video.slug}`}>
             <VideoCard
-              title={video.title}
-              thumbnail={video.thumbnail}
-              views={video.views}
+            // title={video.title}
+            // thumbnail={video.thumbnail}
+            // views={video.views}
             />
           </Link>
         </Col>
