@@ -6,8 +6,9 @@ import { getVideo } from "./getVideo";
 import { VideoViews } from "./components/VideoViews";
 import { VideoLikeCounter } from "./components/VideoLike";
 import { VideoPlayer } from "@/components/VideoPlayer";
-import { VideosRecommendList } from "@/components/VideoRecommended";
 import VideoCardSkeleton from "@/components/VideoCardSkeleton";
+import { VideoComments } from "./components/CommentsSession";
+import { VideoRecommendations } from "./components/RecommendationSession";
 
 const { Title, Text, Paragraph } = Typography;
 const { Content } = Layout;
@@ -22,9 +23,17 @@ export default function VideoPlayPage() {
           <Col xs={24} md={16}>
             <Card
               cover={
-                <VideoPlayer url={video.video_url} poster={video.thumbnail} />
+                // <div
+                //   style={{
+                //     position: "relative",
+                //     height: "300px",
+                //     width: "300px",
+                //   }}
+                // >
+                  <VideoPlayer url={video.video_url} poster={video.thumbnail} />
+                // </div>
               }
-              variant="borderless"
+              variant="outlined"
             >
               <Title level={2}>{video.title}</Title>
               <Row justify="space-between" align="middle">
@@ -44,6 +53,7 @@ export default function VideoPlayPage() {
               <Divider />
               <Paragraph>{video.description}</Paragraph>
             </Card>
+            <VideoComments />
           </Col>
 
           <Col xs={24} md={8}>
@@ -53,7 +63,7 @@ export default function VideoPlayPage() {
                 <VideoCardSkeleton orientation="horizontal" key={i} />
               ))}
             >
-              <VideosRecommendList videoId={video.id} />
+              <VideoRecommendations />
             </Suspense>
           </Col>
         </Row>
