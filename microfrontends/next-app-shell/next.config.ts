@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
           "teste": `teste@http://localhost:3006/_next/static/${
             options.isServer ? "ssr" : "chunks"
           }/remoteEntry.js`,
+          "videoPlayer": "videoPlayer@http://localhost:4200/remoteEntry.js",
         },
         shared: {},
         extraOptions: {

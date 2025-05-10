@@ -58,6 +58,16 @@ export default function Home() {
           </Suspense>
         </div>
       </div>
+      <div className="border rounded-lg p-6 shadow-sm mt-6">
+        <h2 className="text-xl font-semibold mb-4">Angular Video Player MFE</h2>
+        <iframe
+          src="http://localhost:4200/"
+          title="Angular Video Player MFE"
+          width="100%"
+          height="600"
+          style={{ border: '1px solid #ccc', borderRadius: '8px' }}
+        />
+      </div>
     </main>
   )
 }
