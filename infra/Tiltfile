@@ -17,6 +17,42 @@ nextjs_app("next-app", "../microfrontends/next-app", 3005)
 nextjs_app("next-app-login", "../microfrontends/next-app-login", 3006)
 nextjs_app("next-app-shell", "../microfrontends/next-app-shell", 3000)
 
+# Add local_resource for app-shell (Webpack, port 4000)
+local_resource(
+    "app-shell",
+    cmd="cd ../microfrontends/app-shell && yarn start",
+    deps=["../microfrontends/app-shell/src"],
+    allow_parallel=True,
+)
+print("app-shell running at http://localhost:4000")
+
+# Add local_resource for angular-child (Angular, port 4003)
+local_resource(
+    "angular-child",
+    cmd="cd ../microfrontends/angular-child && yarn start",
+    deps=["../microfrontends/angular-child/src"],
+    allow_parallel=True,
+)
+print("angular-child running at http://localhost:4003")
+
+# Add local_resource for react-child (Webpack, port 4001)
+local_resource(
+    "react-child",
+    cmd="cd ../microfrontends/react-child && yarn start",
+    deps=["../microfrontends/react-child/src"],
+    allow_parallel=True,
+)
+print("react-child running at http://localhost:4001")
+
+# Add local_resource for vue-child (Webpack, port 4002)
+local_resource(
+    "vue-child",
+    cmd="cd ../microfrontends/vue-child && yarn start",
+    deps=["../microfrontends/vue-child/src"],
+    allow_parallel=True,
+)
+print("vue-child running at http://localhost:4002")
+
 # Tilt UI links
 print("\nAccess your microfrontends:")
 print("- next-app-shell (host): http://localhost:3000")
