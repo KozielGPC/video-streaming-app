@@ -1,38 +1,24 @@
-docker_build(
-  'node-service',
-  context='../microservices/node-service',
-  live_update=[
-    sync('../microservices/node-service', '/app'),
-  ]
-)
+# Tiltfile for Microfrontends Orchestration
 
-# docker_build(
-#   'person-crud-frontend',
-#   context='./frontend',
-#   live_update=[
-#     sync('./frontend', '/app'),
-#   ]
-# )
+# Helper to run a Next.js app in a subdirectory
+# Args: name, path, port
+def nextjs_app(name, path, port):
+    port = int(port)
+    local_resource(
+        name,
+        cmd="cd " + path + " && PORT=" + str(port) + " NEXT_PRIVATE_LOCAL_WEBPACK=true yarn dev",
+        deps=[path + "/src"],
+        allow_parallel=True,
+    )
+    print(name + " running at http://localhost:" + str(port))
 
-k8s_yaml(
-    [
-      'kubernetes/dev/node-service-secret.yml',
-    #   'dev/frontend-secret.yml', 
-      'kubernetes/dev/node-service-deployment.yml', 
-    #   'infra/dev/services.yml', 
-    #   'infra/dev/frontend-deployment.yml'
-    ]
-)
+# Microfrontends
+nextjs_app("next-app", "../microfrontends/next-app", 3005)
+nextjs_app("next-app-login", "../microfrontends/next-app-login", 3006)
+nextjs_app("next-app-shell", "../microfrontends/next-app-shell", 3000)
 
-
-k8s_resource(
-  'node-service-deployment',
-  port_forwards=['3001:3001'],
-  labels=["application"]
-)
-
-# k8s_resource(
-#   'frontend-deployment',
-#   port_forwards=['3000:3000'],
-#   labels=["application"]
-# )
+# Tilt UI links
+print("\nAccess your microfrontends:")
+print("- next-app-shell (host): http://localhost:3000")
+print("- next-app (remote): http://localhost:3005")
+print("- next-app-login (remote): http://localhost:3006") 
