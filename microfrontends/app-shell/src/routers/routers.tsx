@@ -4,6 +4,7 @@ import AngularWrapper from '../components/AngularWrapper';
 import VueWrapper from '../components/VueWrapper';
 
 const ReactApp = lazy(() => import('reactApp/App'));
+const NextApp = lazy(() => import('login/Home'));
 
 const Routers = () => {
   return (
@@ -29,6 +30,14 @@ const Routers = () => {
         element={
           <Suspense fallback={<div>Loading Angular App...</div>}>
             <AngularWrapper />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/test"
+        element={
+          <Suspense fallback={<div>Loading Next App...</div>}>
+            <NextApp />
           </Suspense>
         }
       />

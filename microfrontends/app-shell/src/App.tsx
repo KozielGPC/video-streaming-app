@@ -18,6 +18,9 @@ const App: React.FC = () => {
           <li>
             <Link to="/angular">Angular App</Link>
           </li>
+          <li>
+            <Link to="/test">Next App</Link>
+          </li>
         </ul>
       </nav>
       <Routers />
