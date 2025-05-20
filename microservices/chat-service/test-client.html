@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat Service Test Client</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2em; }
+      #chat { list-style: none; padding: 0; }
+      #chat li { margin-bottom: 0.5em; }
+      #user, #msg { padding: 0.5em; margin-right: 0.5em; }
+      button { padding: 0.5em 1em; }
+    </style>
+  </head>
+  <body>
+    <h2>Chat Service Test Client</h2>
+    <input id="user" placeholder="User" value="user1" />
+    <input id="msg" placeholder="Message" />
+    <button onclick="sendMsg()">Send</button>
+    <ul id="chat"></ul>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
+      const socket = io("http://localhost:3000");
+      socket.on("connect", () => {
+        console.log("Connected as", socket.id);
+      });
+      socket.on("chat:message", (msg) => {
+        const li = document.createElement("li");
+        li.textContent = `[${msg.user}] ${msg.text}`;
+        document.getElementById("chat").appendChild(li);
+      });
+      function sendMsg() {
+        const user = document.getElementById("user").value;
+        const text = document.getElementById("msg").value;
+        if (text.trim()) {
+          socket.emit("chat:message", { user, text });
+          document.getElementById("msg").value = "";
+        }
+      }
+      document.getElementById("msg").addEventListener("keyup", function(e) {
+        if (e.key === "Enter") sendMsg();
+      });
+    </script>
+  </body>
+</html> 
