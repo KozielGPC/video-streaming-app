@@ -1,36 +1,53 @@
-import { Card, Typography, Badge, Flex } from "antd";
+import { Card, Avatar, Typography, Badge } from "antd";
 import Image from "next/image";
+import Link from "next/link";
+import { formatDistanceToNow } from "date-fns";
+import { Video } from "@/@types/video";
 
 const { Title, Text } = Typography;
 
 interface VideoCardProps {
-  trending?: boolean;
+  video: Video;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ trending }) => {
+const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   return (
-    <Badge.Ribbon text={trending ? "Trending" : ""} color="red">
-      <Card
-        hoverable
-        cover={
-          <div style={{ position: "relative", width: "100%", height: "170px" }}>
+    <Link href={`/${video.id}`}>
+      <Badge.Ribbon text={video.trending ? "Trending" : ""} color="red">
+        <Card
+          hoverable
+          cover={
             <Image
-              alt="video thumbnail"
-              src="/thumbnail.png"
-              objectFit="cover"
-              layout="fill"
+              alt={video.title}
+              src={video.thumbnail}
+              width={500}
+              height={300}
+              style={{ objectFit: "cover" }}
             />
-          </div>
-        }
-      >
-        <Title level={5}>Making the Perfect Cup of Coffee</Title>
-        <Text type="secondary">Super Cool Channel</Text>
-        <Flex justify="space-between">
-          <Text>12321 Views</Text>
-          <Text>1231121 Likes</Text>
-        </Flex>
-      </Card>
-    </Badge.Ribbon>
+          }
+        >
+          <Card.Meta
+            avatar={<Avatar src={video.channel.avatar} />}
+            title={
+              <Title level={5} ellipsis={{ rows: 2 }}>
+                {video.title}
+              </Title>
+            }
+            description={
+              <>
+                <Text type="secondary">{video.channel.name}</Text>
+                <br />
+                <Text type="secondary">
+                  {`${video.views} views • ${formatDistanceToNow(
+                    video.published_at
+                  )} ago`}
+                </Text>
+              </>
+            }
+          />
+        </Card>
+      </Badge.Ribbon>
+    </Link>
   );
 };
 
