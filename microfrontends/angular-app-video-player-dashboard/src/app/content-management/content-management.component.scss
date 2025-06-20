@@ -1,14 +1,14 @@
 .content-container {
-  background-color: #fff;
+  background-color: #1e293b;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #333;
+  color: #fff;
 }
 
 .video-list {
@@ -20,16 +20,19 @@ h2 {
 .video-list td {
   padding: 15px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #334155;
+  color: #cbd5e1;
 }
 
 .video-list th {
-  background-color: #f8f9fa;
+  background-color: #334155;
   font-weight: bold;
+  color: #fff;
 }
 
 .video-list .video-title {
   font-weight: bold;
+  color: #fff;
 }
 
 .video-list .actions button {
@@ -38,10 +41,19 @@ h2 {
   cursor: pointer;
   margin-right: 15px;
   font-size: 1.2rem;
-  color: #555;
+  color: #cbd5e1;
   transition: color 0.3s;
 }
 
 .video-list .actions button:hover {
-  color: #e100ff;
+  color: #38bdf8;
+}
+
+.video-list tbody tr {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.video-list tbody tr:hover {
+  background-color: #334155;
 }

@@ -3,18 +3,19 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 .dashboard-container {
   display: flex;
   height: 100%;
   width: 100%;
-  background-color: #f4f7f6;
+  background-color: #0f172a;
 }
 
 .sidebar {
   width: 250px;
-  background-color: #1a1a1a;
+  background-color: #001529;
   color: #fff;
   padding: 20px;
   display: flex;
@@ -27,7 +28,7 @@
   font-weight: bold;
   margin-bottom: 30px;
   text-align: center;
-  color: #e100ff;
+  color: #fff;
 }
 
 .navigation ul {
@@ -40,16 +41,17 @@
   display: flex;
   align-items: center;
   padding: 15px 10px;
-  color: #fff;
+  color: #cbd5e1;
   text-decoration: none;
   border-radius: 5px;
   margin-bottom: 10px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .navigation ul li a:hover,
 .navigation ul li a.active-link {
-  background-color: #333;
+  background-color: #1e293b;
+  color: #fff;
 }
 
 .navigation ul li a .icon-upload,
@@ -62,6 +64,7 @@
   flex-grow: 1;
   padding: 40px;
   overflow-y: auto;
+  background-color: #0f172a;
 }
 
 @media (max-width: 768px) {
