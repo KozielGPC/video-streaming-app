@@ -1,8 +1,16 @@
-<nav>
-  <ul>
-    <li><a routerLink="/upload">Upload Video</a></li>
-    <li><a routerLink="/manage">Manage Content</a></li>
-  </ul>
-</nav>
-
-<router-outlet></router-outlet>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo">
+      Creator Studio
+    </div>
+    <nav class="navigation">
+      <ul>
+        <li><a routerLink="/upload" routerLinkActive="active-link"><i class="icon-upload"></i><span>Upload Video</span></a></li>
+        <li><a routerLink="/manage" routerLinkActive="active-link"><i class="icon-manage"></i><span>Manage Content</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>

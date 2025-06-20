@@ -1,18 +1,38 @@
-<h2>Manage Your Content</h2>
-<ul>
-  <li>
-    <span>Video Title 1</span>
-    <button>Edit</button>
-    <button>Delete</button>
-  </li>
-  <li>
-    <span>Video Title 2</span>
-    <button>Edit</button>
-    <button>Delete</button>
-  </li>
-  <li>
-    <span>Video Title 3</span>
-    <button>Edit</button>
-    <button>Delete</button>
-  </li>
-</ul>
+<div class="content-container">
+  <h2>Manage Your Content</h2>
+  <table class="video-list">
+    <thead>
+      <tr>
+        <th>Video</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="video-title">Video Title 1</td>
+        <td>Published</td>
+        <td class="actions">
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="video-title">Video Title 2</td>
+        <td>Processing</td>
+        <td class="actions">
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="video-title">Video Title 3</td>
+        <td>Draft</td>
+        <td class="actions">
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

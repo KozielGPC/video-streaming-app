@@ -1,0 +1,47 @@
+.content-container {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.video-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.video-list th,
+.video-list td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.video-list th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.video-list .video-title {
+  font-weight: bold;
+}
+
+.video-list .actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  font-size: 1.2rem;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.video-list .actions button:hover {
+  color: #e100ff;
+}

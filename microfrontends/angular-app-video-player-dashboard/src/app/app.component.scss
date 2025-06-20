@@ -1,0 +1,80 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.dashboard-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #f4f7f6;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #e100ff;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation ul li a {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.navigation ul li a:hover,
+.navigation ul li a.active-link {
+  background-color: #333;
+}
+
+.navigation ul li a .icon-upload,
+.navigation ul li a .icon-manage {
+  margin-right: 15px;
+  font-size: 1.2rem;
+}
+
+.content-area {
+  flex-grow: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80px;
+  }
+
+  .sidebar .logo,
+  .sidebar .navigation ul li a span {
+    display: none;
+  }
+
+  .sidebar .navigation ul li a {
+    justify-content: center;
+  }
+}
