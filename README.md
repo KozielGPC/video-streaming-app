@@ -125,6 +125,49 @@ A comprehensive, modern video streaming platform supporting both live streams an
 
 ---
 
+## Web3 Integration Plan
+
+Integrating Web3 features can unlock new monetization models and enhance user engagement. This plan outlines a phased approach to adding blockchain capabilities to the platform.
+
+### Phase 1: Foundational Features
+
+1.  **Wallet-Based Authentication**:
+    -   **Goal**: Allow users to sign in using crypto wallets like MetaMask.
+    -   **Implementation**:
+        -   **`auth-mfe`**: Add a "Connect Wallet" button. Use a library like `ethers.js` or `web3-react`.
+        -   **`user-service`**: Implement a sign-to-verify mechanism. The backend asks the user to sign a message to prove wallet ownership and then issues a JWT.
+
+2.  **Cryptocurrency Tipping**:
+    -   **Goal**: Enable viewers to tip creators directly with crypto.
+    -   **Implementation**:
+        -   **`video-player-mfe`**: Add a "Tip" button to the player UI.
+        -   **New `web3-service`**: A new microservice to handle blockchain transactions (e.g., initiating the transaction on the frontend and verifying it on the backend).
+
+### Phase 2: Enhanced Engagement & Monetization
+
+1.  **Token-Gated Content**:
+    -   **Goal**: Restrict access to videos or live streams based on ownership of a specific token or NFT.
+    -   **Implementation**:
+        -   **`video-service` / `chat-service`**: Before serving content, query the `web3-service` to verify the user's wallet holdings.
+
+2.  **NFTs as Memberships or Collectibles**:
+    -   **Goal**: Allow creators to sell NFTs that grant special perks or act as digital collectibles.
+    -   **Implementation**:
+        -   **`creator-dashboard-mfe`**: Add a new section for creators to mint and manage NFT collections.
+        -   **`web3-service`**: Handle the minting logic (preferably on a low-cost L2 like Polygon) and ownership verification.
+
+### Phase 3: Towards Decentralization
+
+1.  **Decentralized Video Storage (VOD)**:
+    -   **Goal**: Store VOD content on decentralized networks like IPFS or Arweave for censorship resistance.
+    -   **Implementation**:
+        -   **`video-service`**: Modify the video processing pipeline to upload transcoded files to IPFS and store the resulting Content ID (CID).
+        -   **`video-player-mfe`**: Update the player to stream content from an IPFS gateway.
+
+2.  **Community Governance (DAO)**:
+    -   **Goal**: Create a platform token that allows holders to vote on platform proposals.
+    -   **Implementation**: This is a major undertaking involving custom smart contracts for voting and treasury management, along with a dedicated UI for interacting with the DAO.
+
 ## Mermaid System Diagram
 
 ```mermaid
@@ -149,6 +192,7 @@ flowchart TD
         Chat[Chat Service Node.js/Go]:::service
         Notify[Notification Service Ruby/Go]:::service
         Analytics[Analytics Service Python/Go]:::service
+        Web3[Web3 Service Solidity/Node.js]:::service
     end
 
     subgraph Messaging
@@ -160,6 +204,7 @@ flowchart TD
         SQL[SQL DB Postgres/MySQL]:::storage
         NoSQL[NoSQL DB MongoDB]:::storage
         S3[S3/Minio]:::storage
+        DecentralizedStorage[IPFS/Arweave]:::storage
     end
 
     subgraph Observability
@@ -169,15 +214,23 @@ flowchart TD
     end
 
     AppShell & Home & Auth & Player & Creator & Admin --> Gateway
-    Gateway --> User & Video & Live & Chat & Notify & Analytics
-    User & Video & Live & Chat & Notify & Analytics --> RMQ
-    User & Video & Live & Chat & Notify & Analytics --> Redis
+    Gateway --> User & Video & Live & Chat & Notify & Analytics & Web3
+    User & Video & Live & Chat & Notify & Analytics & Web3 --> RMQ
+    User & Video & Live & Chat & Notify & Analytics & Web3 --> Redis
     Video & Live --> S3
     User --> SQL
     Video --> NoSQL
     Analytics --> SQL & NoSQL
+    Web3 --> DecentralizedStorage
+    Video --> DecentralizedStorage
     RMQ & Redis --> Services
     Prom & Graf & Loki --> Services
+
+    %% Web3 Interactions
+    User --> Web3
+    Video --> Web3
+    Chat --> Web3
+
     classDef frontend fill:#42b883,color:#fff,stroke:#42b883
     classDef service fill:#007acc,color:#fff,stroke:#007acc
     classDef messaging fill:#ff4757,color:#fff,stroke:#ff4757
@@ -230,15 +283,6 @@ tilt up
 - Shell (host): [http://localhost:3000](http://localhost:3000)
 - App (remote): [http://localhost:3005](http://localhost:3005)
 - Login (remote): [http://localhost:3006](http://localhost:3006)
-
-
-    %% Legend
-    subgraph Legend["Legend"]
-        F[Frontend Component]:::frontend
-        S[Service Component]:::service
-        M[Messaging System]:::messaging
-        I[Infrastructure]:::infra
-    end
 ```
 
 # Microfrontends Architecture & Local Orchestration
@@ -273,9 +317,9 @@ tilt up
 
 ```mermaid
 flowchart TD
-    Shell[next-app-shell (host)\n:3000]:::host
-    Login[next-app-login (remote)\n:3006]:::remote
-    App[next-app (remote)\n:3005]:::remote
+    Shell[next-app-shell host:3000]:::host
+    Login[next-app-login remote:3006]:::remote
+    App[next-app remote:3005]:::remote
 
     Shell -- Module Federation --> Login
     Shell -- Module Federation --> App
