@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -14,10 +15,16 @@ module.exports = {
         loader: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+        exclude: /node_modules/,
+      },
     ],
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
+    plugins: [new TsconfigPathsPlugin()],
   },
   plugins: [
     new ModuleFederationPlugin({
@@ -28,7 +35,11 @@ module.exports = {
       },
       shared: {
         react: { singleton: true, eager: true, requiredVersion: "18.0.0" },
-        "react-dom": { singleton: true, eager: true, requiredVersion: "18.0.0" },
+        "react-dom": {
+          singleton: true,
+          eager: true,
+          requiredVersion: "18.0.0",
+        },
       },
     }),
     new HtmlWebpackPlugin({
