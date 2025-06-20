@@ -30,7 +30,7 @@ export function VideoPlayer(props: VideoPlayerProps) {
   return (
     <video
       ref={videoNodeRef}
-      className="w-full h-full"
+      style={{ width: "100%", height: "100%" }}
       controls
       autoPlay
       poster={poster}

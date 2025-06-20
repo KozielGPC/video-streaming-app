@@ -1,6 +1,6 @@
 import { VideoModel } from "@/pages/types/video";
 
-export function getVideo(slug: string): VideoModel {
+export function getVideo(): VideoModel {
   return {
     id: 1,
     title: "Big Buck Bunny",

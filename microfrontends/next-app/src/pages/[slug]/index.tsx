@@ -14,45 +14,57 @@ const { Title, Text, Paragraph } = Typography;
 const { Content } = Layout;
 
 export default function VideoPlayPage() {
-  const video = getVideo("asdas");
+  const video = getVideo();
 
   return (
     <Layout style={{ padding: "24px" }}>
       <Content>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[24, 24]}>
           <Col xs={24} md={16}>
-            <Card
-              cover={
-                // <div
-                //   style={{
-                //     position: "relative",
-                //     height: "300px",
-                //     width: "300px",
-                //   }}
-                // >
-                  <VideoPlayer url={video.video_url} poster={video.thumbnail} />
-                // </div>
-              }
-              variant="outlined"
+            <div
+              style={{
+                position: "relative",
+                paddingTop: "56.25%", // 16:9 aspect ratio
+                backgroundColor: "black",
+              }}
             >
-              <Title level={2}>{video.title}</Title>
-              <Row justify="space-between" align="middle">
-                <Suspense fallback={<Skeleton.Button active size="large" />}>
-                  <VideoViews videoId={video.id} />
-                  <Text type="secondary">
-                    há{" "}
-                    {formatDistance(video.published_at, new Date(), {
-                      locale: ptBR,
-                    })}
-                  </Text>
-                </Suspense>
-                <Suspense fallback={<Skeleton.Button active size="small" />}>
-                  <VideoLikeCounter videoId={video.id} />
-                </Suspense>
-              </Row>
-              <Divider />
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <VideoPlayer
+                  url={video.video_url}
+                  poster={video.thumbnail}
+                />
+              </div>
+            </div>
+            <Title level={2} style={{ marginTop: "16px" }}>
+              {video.title}
+            </Title>
+            <Row justify="space-between" align="middle">
+              <Suspense fallback={<Skeleton.Button active size="large" />}>
+                <VideoViews videoId={video.id} />
+                <Text type="secondary">
+                  há{" "}
+                  {formatDistance(video.published_at, new Date(), {
+                    locale: ptBR,
+                  })}
+                </Text>
+              </Suspense>
+              <Suspense fallback={<Skeleton.Button active size="small" />}>
+                <VideoLikeCounter videoId={video.id} />
+              </Suspense>
+            </Row>
+            <Divider />
+            <Card>
               <Paragraph>{video.description}</Paragraph>
             </Card>
+            <Divider />
             <VideoComments />
           </Col>
 
