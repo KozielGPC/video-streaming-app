@@ -1,59 +1,71 @@
-# VideoPlayerMfe
+# Video Player Dashboard Microfrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
+This project is a microfrontend that provides a dashboard for video content management within the larger video streaming application. It allows users to upload, view, and manage their videos.
 
-## Development server
+## About This Project
 
-To start a local development server, run:
+The Video Player Dashboard is a critical component of the creator-facing side of the platform. It's developed as a microfrontend to be independently deployable and maintainable. It uses Webpack's Module Federation to expose its components to be consumed by the main application shell.
 
-```bash
-ng serve
-```
+## Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+*   **[Angular](https://angular.io/)**: A platform for building mobile and desktop web applications.
+*   **[TypeScript](https://www.typescriptlang.org/)**: A superset of JavaScript that adds static types.
+*   **[RxJS](https://rxjs.dev/)**: A library for reactive programming using Observables.
+*   **[Module Federation](https://webpack.js.org/concepts/module-federation/)**: A feature of Webpack 5 that allows for sharing code and dependencies between applications.
+*   **[Angular Architects Module Federation Plugin](https://github.com/angular-architects/module-federation)**: A plugin to simplify using Module Federation with Angular.
+*   **[Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components)**: Used to expose Angular components as custom elements.
 
-## Code scaffolding
+## Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
 
-```bash
-ng generate component component-name
-```
+*   Node.js and npm installed.
+*   The main application shell running.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Installation and Running
 
-```bash
-ng generate --help
-```
+1.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+2.  To serve the microfrontend for development, it should be run as part of the larger application using the module federation development server.
+    ```bash
+    npm run run:all
+    ```
+    This script, provided by `@angular-architects/module-federation`, will start a development server that is aware of the federated modules.
+
+3.  If you need to run this microfrontend in isolation (for component development, for example), you can use the standard Angular CLI serve command:
+    ```bash
+    npm run start
+    ```
+    Navigate to `http://localhost:4200/`. Note that in this mode, integrations with other microfrontends will not work.
 
 ## Building
 
-To build the project run:
+To build the project for production, run:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The build artifacts will be stored in the `dist/` directory. The production build is optimized for performance.
 
 ## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To execute unit tests via [Karma](https://karma-runner.github.io):
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Code Scaffolding
 
-For end-to-end (e2e) testing, run:
+To generate a new component, you can use the Angular CLI:
 
 ```bash
-ng e2e
+ng generate component my-new-component
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+You can also generate directives, pipes, services, classes, guards, interfaces, enums, and modules.
+For more information, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
