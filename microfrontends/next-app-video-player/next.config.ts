@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   webpack(config, { isServer }) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: "login",
+        name: "video-player",
         filename: "static/chunks/remoteEntry.js",
         exposes: {
           "./Home": "./src/pages/index.tsx",
