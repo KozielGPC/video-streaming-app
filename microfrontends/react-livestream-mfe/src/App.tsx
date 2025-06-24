@@ -1,10 +1,20 @@
+import { ConfigProvider, theme } from 'antd';
 import LiveStreamPage from "./pages/LiveStreamPage";
 
 function App() {
   return (
-    <main className="dark bg-background">
+    <ConfigProvider
+      theme={{
+        algorithm: theme.darkAlgorithm,
+        token: {
+          colorPrimary: '#1890ff',
+          colorBgContainer: '#001529',
+          colorBgElevated: '#001529',
+        },
+      }}
+    >
       <LiveStreamPage />
-    </main>
+    </ConfigProvider>
   )
 }
 

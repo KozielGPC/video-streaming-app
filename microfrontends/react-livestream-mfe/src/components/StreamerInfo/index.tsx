@@ -1,22 +1,37 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/ui/avatar';
+import { Card, Avatar, Typography } from 'antd';
+
+const { Title, Text } = Typography;
 
 const StreamerInfo = () => {
   return (
-    <Card>
-        <CardHeader className="flex flex-row items-center gap-4 p-4">
-            <Avatar className="h-12 w-12">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
-            <div>
-                <CardTitle className="text-primary">John Doe</CardTitle>
-                <p className="text-sm text-muted-foreground">JohnDoe's Awesome Stream</p>
-            </div>
-        </CardHeader>
-        <CardContent className="p-4">
-            <p className="text-sm">Welcome to my channel! I stream every day at 8 PM EST. Don't forget to follow and subscribe!</p>
-        </CardContent>
+    <Card 
+      style={{ 
+        background: '#001529',
+        border: '1px solid #303030'
+      }}
+      bodyStyle={{ 
+        padding: '16px',
+        background: '#001529'
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <Avatar size={48} src="https://github.com/shadcn.png">
+          JD
+        </Avatar>
+        <div>
+          <Title level={4} style={{ color: '#1890ff', margin: 0 }}>
+            John Doe
+          </Title>
+          <Text style={{ color: '#8c8c8c', fontSize: '14px' }}>
+            JohnDoe's Awesome Stream
+          </Text>
+        </div>
+      </div>
+      <div style={{ marginTop: '16px' }}>
+        <Text style={{ color: '#fff', fontSize: '14px' }}>
+          Welcome to my channel! I stream every day at 8 PM EST. Don't forget to follow and subscribe!
+        </Text>
+      </div>
     </Card>
   );
 };
