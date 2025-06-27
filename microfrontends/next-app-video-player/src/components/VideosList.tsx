@@ -1,4 +1,4 @@
-import { VideoModel } from "@/pages/types/video";
+import { VideoModel } from "@/types/video";
 import Link from "next/link";
 import { getMockedVideos } from "@/utils";
 import { Row, Col, Empty } from "antd";
@@ -20,11 +20,11 @@ export async function VideosList(props: VideoListProps) {
       {videos.map((video) => (
         <Col xs={24} sm={12} md={8} lg={6} key={video.id}>
           <Link href={`/${video.slug}`}>
-            <VideoCard
+            {/* <VideoCard
             // title={video.title}
             // thumbnail={video.thumbnail}
             // views={video.views}
-            />
+            /> */}
           </Link>
         </Col>
       ))}

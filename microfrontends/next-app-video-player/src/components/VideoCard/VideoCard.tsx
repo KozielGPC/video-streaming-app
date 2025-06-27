@@ -2,18 +2,22 @@ import { Card, Avatar, Typography, Badge } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import { VideoModel } from "@/types/video";
 import { Video } from "@/@types/video";
 
 const { Title, Text } = Typography;
 
 interface VideoCardProps {
-  video: Video;
+  video: VideoModel | Video;
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
+  const publishedDate = typeof video.published_at === 'string' ? new Date(video.published_at) : video.published_at;
+  const videoSlug = (video as VideoModel).slug || (video as Video).id;
+  
   return (
-    <Link href={`/${video.id}`}>
-      <Badge.Ribbon text={video.trending ? "Trending" : ""} color="red">
+    <Link href={`/${videoSlug}`}>
+      <Badge.Ribbon text="Trending" color="red">
         <Card
           hoverable
           cover={
@@ -39,7 +43,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                 <br />
                 <Text type="secondary">
                   {`${video.views} views • ${formatDistanceToNow(
-                    video.published_at
+                    publishedDate
                   )} ago`}
                 </Text>
               </>

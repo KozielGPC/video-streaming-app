@@ -13,6 +13,8 @@ export const videos: Video[] = [
     views: 1500000,
     likes: 78000,
     trending: true,
+    slug: "big-buck-bunny",
+    tags: ["animation", "blender", "classic"],
     channel: {
       name: "Blender Foundation",
       avatar: "https://yt3.ggpht.com/a/AATXAJyv_V4p_q0Z_u_Z_Z_Z_Z_Z_Z_Z_Z_Z_Z_Y=s88-c-k-c0x00ffffff-no-rj",
@@ -28,6 +30,8 @@ export const videos: Video[] = [
     published_at: new Date("2023-09-15T10:30:00Z"),
     views: 800000,
     likes: 45000,
+    slug: "elephants-dream",
+    tags: ["animation", "blender", "movie"],
     channel: {
       name: "Blender Foundation",
       avatar: "https://yt3.ggpht.com/a/AATXAJyv_V4p_q0Z_u_Z_Z_Z_Z_Z_Z_Z_Z_Z_Z_Y=s88-c-k-c0x00ffffff-no-rj",
@@ -44,6 +48,8 @@ export const videos: Video[] = [
     views: 250000,
     likes: 12000,
     trending: true,
+    slug: "for-bigger-blazes",
+    tags: ["animation", "dragon", "fun"],
     channel: {
       name: "Animation Masters",
       avatar: "https://yt3.ggpht.com/a/AATXAJyv_V4p_q0Z_u_Z_Z_Z_Z_Z_Z_Z_Z_Z_Z_Y=s88-c-k-c0x00ffffff-no-rj",
@@ -59,6 +65,8 @@ export const videos: Video[] = [
     published_at: new Date("2024-02-20T12:00:00Z"),
     views: 500000,
     likes: 25000,
+    slug: "for-bigger-escape",
+    tags: ["action", "thriller", "escape"],
     channel: {
       name: "Action Flicks",
       avatar: "https://yt3.ggpht.com/a/AATXAJyv_V4p_q0Z_u_Z_Z_Z_Z_Z_Z_Z_Z_Z_Z_Y=s88-c-k-c0x00ffffff-no-rj",
@@ -74,6 +82,8 @@ export const videos: Video[] = [
     published_at: new Date("2024-03-10T09:00:00Z"),
     views: 150000,
     likes: 8000,
+    slug: "for-bigger-fun",
+    tags: ["comedy", "fun", "animation"],
     channel: {
       name: "Comedy Central",
       avatar: "https://yt3.ggpht.com/a/AATXAJyv_V4p_q0Z_u_Z_Z_Z_Z_Z_Z_Z_Z_Z_Z_Y=s88-c-k-c0x00ffffff-no-rj",
@@ -90,6 +100,8 @@ export const videos: Video[] = [
     views: 350000,
     likes: 18000,
     trending: true,
+    slug: "for-bigger-joyrides",
+    tags: ["adventure", "fun", "joyride"],
     channel: {
       name: "Adventure Vlogs",
       avatar: "https://yt3.ggpht.com/a/AATXAJyv_V4p_q0Z_u_Z_Z_Z_Z_Z_Z_Z_Z_Z_Z_Y=s88-c-k-c0x00ffffff-no-rj",

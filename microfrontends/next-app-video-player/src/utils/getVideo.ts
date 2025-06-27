@@ -1,4 +1,4 @@
-import { VideoModel } from "@/pages/types/video";
+import { VideoModel } from "@/types/video";
 
 export function getVideo(): VideoModel {
   return {
@@ -12,6 +12,10 @@ export function getVideo(): VideoModel {
     likes: 100,
     views: 1000,
     tags: ["cartoon", "bunny"],
+    channel: {
+      name: "Blender Foundation",
+      avatar: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+    },
     video_url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
   };
 }

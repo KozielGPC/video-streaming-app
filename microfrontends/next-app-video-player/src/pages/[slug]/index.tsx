@@ -2,13 +2,13 @@ import { formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Suspense } from "react";
 import { Card, Typography, Layout, Row, Col, Skeleton, Divider } from "antd";
-import { getVideo } from "./getVideo";
-import { VideoViews } from "./components/VideoViews";
-import { VideoLikeCounter } from "./components/VideoLike";
+import { getVideo } from "@/utils/getVideo";
+import { VideoViews } from "@/components/VideoViews";
+import { VideoLikeCounter } from "@/components/VideoLike";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import VideoCardSkeleton from "@/components/VideoCardSkeleton";
-import { VideoComments } from "./components/CommentsSession";
-import { VideoRecommendations } from "./components/RecommendationSession";
+import { VideoComments } from "@/components/CommentsSession";
+import { VideoRecommendations } from "@/components/RecommendationSession";
 
 const { Title, Text, Paragraph } = Typography;
 const { Content } = Layout;
@@ -51,7 +51,7 @@ export default function VideoPlayPage() {
                 <VideoViews videoId={video.id} />
                 <Text type="secondary">
                   há{" "}
-                  {formatDistance(video.published_at, new Date(), {
+                  {formatDistance(new Date(video.published_at), new Date(), {
                     locale: ptBR,
                   })}
                 </Text>

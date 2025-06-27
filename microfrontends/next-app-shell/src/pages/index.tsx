@@ -4,14 +4,19 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 
 // Dynamically import the microfrontends
-const ReactMicrofrontend = dynamic(() => import("login/Home"), {
-  ssr: false,
-  loading: () => <div className="p-4 border rounded">Loading React microfrontend...</div>,
-})
+// const ReactMicrofrontend = dynamic(() => import("login/Home"), {
+//   ssr: false,
+//   loading: () => <div className="p-4 border rounded">Loading React microfrontend...</div>,
+// })
 
 const OtherFrontend = dynamic(() => import("teste/Home"), {
   ssr: false,
   loading: () => <div className="p-4 border rounded">Loading Angular microfrontend...</div>,
+})
+
+const VideoPlayer = dynamic(() => import("video-player/Home"), {
+  ssr: false,
+  loading: () => <div className="p-4 border rounded">Loading video player...</div>,
 })
 
 //@ts-expect-error lazy
@@ -46,7 +51,8 @@ export default function Home() {
         <div className="border rounded-lg p-6 shadow-sm">
           <h2 className="text-xl font-semibold mb-4">React Microfrontend</h2>
           <Suspense fallback={<div>Loading React app...</div>}>
-            <ReactMicrofrontend />
+            {/* <ReactMicrofrontend /> */}
+            <VideoPlayer />
             {/* <Login /> */}
           </Suspense>
         </div>

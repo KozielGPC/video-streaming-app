@@ -1,4 +1,4 @@
-import { VideoModel } from "./pages/types/video";
+import { VideoModel } from "./types/video";
 
 export function getMockedVideos(): VideoModel[] {
     const mockData: VideoModel[] = Array.from({ length: 10 }, (_, index) => ({
@@ -11,6 +11,10 @@ export function getMockedVideos(): VideoModel[] {
         likes: Math.floor(Math.random() * 1000),
         views: Math.floor(Math.random() * 10000),
         tags: [`tag${index + 1}`, `category${index % 3}`],
+        channel: {
+            name: `Channel ${index + 1}`,
+            avatar: `https://placehold.co/50/png`
+        },
         video_url: `https://example.com/videos/sample-video-${index + 1}.mp4`
     }));
 

@@ -3,10 +3,10 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 
 // Dynamically import the React microfrontend
-const ReactMicrofrontend = dynamic(() => import("login/Home"), {
-  ssr: false,
-  loading: () => <div className="p-4 border rounded">Loading React microfrontend...</div>,
-})
+// const ReactMicrofrontend = dynamic(() => import("login/Home"), {
+//   ssr: false,
+//   loading: () => <div className="p-4 border rounded">Loading React microfrontend...</div>,
+// })
 export default function ReactAppPage() {
   return (
     <main className="container mx-auto p-6">
@@ -20,7 +20,7 @@ export default function ReactAppPage() {
 
       <div className="border rounded-lg p-6 shadow-sm">
         <Suspense fallback={<div>Loading React app...</div>}>
-          <ReactMicrofrontend />
+          {/* <ReactMicrofrontend /> */}
         </Suspense>
       </div>
     </main>

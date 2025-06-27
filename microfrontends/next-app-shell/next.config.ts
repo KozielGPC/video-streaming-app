@@ -10,13 +10,13 @@ const nextConfig: NextConfig = {
         name: "main-host",
         filename: "static/chunks/remoteEntry.js",
         remotes: {
-          "login": `login@http://localhost:3005/_next/static/${
+          "video-player": `video-player@http://localhost:3005/_next/static/${
             options.isServer ? "ssr" : "chunks"
           }/remoteEntry.js`,
           "teste": `teste@http://localhost:3006/_next/static/${
             options.isServer ? "ssr" : "chunks"
           }/remoteEntry.js`,
-          "videoPlayer": "videoPlayer@http://localhost:4200/remoteEntry.js",
+          // "videoPlayer": "videoPlayer@http://localhost:4200/remoteEntry.js",
         },
         shared: {},
         extraOptions: {

@@ -16,7 +16,7 @@ export const VideoTabs = () => {
           <Row gutter={[16, 16]}>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <Col key={i} xs={24} sm={12} md={8} lg={6}>
-                <VideoCard />
+                {/* <VideoCard /> */}
               </Col>
             ))}
           </Row>
@@ -26,7 +26,7 @@ export const VideoTabs = () => {
           <Row gutter={[16, 16]}>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <Col key={i} xs={24} sm={12} md={8} lg={6}>
-                <VideoCard trending />
+                {/* <VideoCard trending /> */}
               </Col>
             ))}
           </Row>
@@ -36,7 +36,7 @@ export const VideoTabs = () => {
           <Row gutter={[16, 16]}>
             {[1, 2, 3, 4].map((i) => (
               <Col key={i} xs={24} sm={12} md={8} lg={6}>
-                <VideoCard />
+                {/* <VideoCard /> */}
               </Col>
             ))}
           </Row>

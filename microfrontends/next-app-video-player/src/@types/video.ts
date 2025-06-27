@@ -8,6 +8,8 @@ export interface Video {
   views: number;
   likes: number;
   trending?: boolean;
+  slug: string;
+  tags: string[];
   channel: {
     name: string;
     avatar: string;
